@@ -136,7 +136,7 @@ public class ZombieHandler {
 
         // Sunlight damage — outdoors + daytime, 0.5 HP/sec
         if (!isNight && totalTicks % 20 == 0 && isOutdoors(player)) {
-            player.hurt(player.level().damageSources().generic(), 0.5f);
+            player.hurtServer((ServerLevel) player.level(), player.level().damageSources().generic(), 0.5f);
         }
 
         // Flesh craving — food below 6 triggers extra Weakness
@@ -272,7 +272,7 @@ public class ZombieHandler {
                 }
                 if (hasInstantHealth) {
                     stack.shrink(1);
-                    sp.hurt(sp.level().damageSources().generic(), 4.0f * (healthAmp + 1));
+                    sp.hurtServer((ServerLevel) sp.level(), sp.level().damageSources().generic(), 4.0f * (healthAmp + 1));
                     sp.sendOverlayMessage(Component.literal("The healing potion burns!").withStyle(ChatFormatting.RED));
                     return InteractionResult.SUCCESS;
                 }
