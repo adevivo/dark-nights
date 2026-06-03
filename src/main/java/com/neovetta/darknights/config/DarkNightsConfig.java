@@ -25,6 +25,7 @@ public class DarkNightsConfig {
     public float rottenFleshInfectionChance = 0.05f;
     public float infectedBrainInfectionChance = 0.50f;
     public float zombieInfectionChance = 0.10f;
+    public int maxHordeCap = 4;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 

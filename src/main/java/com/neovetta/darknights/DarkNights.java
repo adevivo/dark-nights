@@ -6,6 +6,7 @@ import com.neovetta.darknights.handler.BloodMoonHandler;
 import com.neovetta.darknights.handler.WerewolfHandler;
 import com.neovetta.darknights.handler.FamiliarHandler;
 import com.neovetta.darknights.handler.ZombieHandler;
+import com.neovetta.darknights.handler.ZombieHordeHandler;
 import com.neovetta.darknights.item.DarkNightsItems;
 import com.neovetta.darknights.network.DarkNightsPackets;
 import net.fabricmc.api.ModInitializer;
@@ -28,6 +29,7 @@ public class DarkNights implements ModInitializer {
         WerewolfHandler.register();
         FamiliarHandler.register();
         ZombieHandler.register();
+        ZombieHordeHandler.register();
         LOGGER.info("Dark Nights initialized");
     }
 }

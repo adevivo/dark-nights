@@ -119,9 +119,26 @@ All commands require gamemaster (OP level 2) permissions.
 
 ---
 
+### Zombie Familiars
+
+Zombie-cursed players automatically bond nearby undead at night. The horde follows, protects, and burns off at sunrise.
+
+**Bonding:** At night, zombies, zombie villagers, drowned, and husks within 10 blocks are pulled into the horde. Cap: `maxHordeCap` (default 4) from config. Piglins excluded.
+
+**Horde behavior:**
+- Follow the owner when not in combat; teleport back if they stray beyond 32 blocks
+- No-friendly-fire: familiars will not damage their owner
+- At sunrise, bonds are not forcibly broken — horde members burn naturally in sunlight and die; death cleans the bond from `SavedData` automatically
+- If `enableFactionCombat` is on, horde members target transformed werewolf players within 15 blocks
+
+**Faction interactions:**
+- Zombie horde attacks transformed werewolves on sight (within 15 blocks)
+- Pack wolves from the werewolf faction return the favor
+
+---
+
 ## Planned Features
 
-- **Zombie Familiars** — Zombie players command undead (zombie/drowned) that burn at sunrise
 - **Vampire's Curse** — Nocturnal power spike, sunlight damage, blood drain mechanic
 - **Runic Attunement** — Passive glyphs that modify curse effects
 - **Wild Hunt** — Endgame event pitting lycanthropes against the zombie faction
