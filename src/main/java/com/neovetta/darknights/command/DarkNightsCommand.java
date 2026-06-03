@@ -3,6 +3,7 @@ package com.neovetta.darknights.command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.neovetta.darknights.handler.VampireHandler;
 import com.neovetta.darknights.handler.WerewolfHandler;
+import com.neovetta.darknights.handler.WildHuntHandler;
 import com.neovetta.darknights.handler.ZombieHandler;
 import com.neovetta.darknights.saveddata.LycanthropySavedData;
 import com.neovetta.darknights.saveddata.VampireSavedData;
@@ -120,6 +121,16 @@ public class DarkNightsCommand {
                         ctx.getSource().sendSuccess(() ->
                             Component.literal("[darknights] Vampire curse applied.")
                                 .withStyle(ChatFormatting.DARK_RED), false);
+                        return 1;
+                    })
+                )
+                .then(literal("hunt")
+                    .executes(ctx -> {
+                        MinecraftServer server = ctx.getSource().getServer();
+                        WildHuntHandler.adminStartHunt(server);
+                        ctx.getSource().sendSuccess(() ->
+                            Component.literal("[darknights] Wild Hunt triggered.")
+                                .withStyle(ChatFormatting.DARK_PURPLE), false);
                         return 1;
                     })
                 )

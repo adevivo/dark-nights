@@ -21,6 +21,7 @@ public class DarkNightsItems {
     public static Item WATER_RUNE;
     public static Item EARTH_RUNE;
     public static Item AIR_RUNE;
+    public static Item WILD_HUNT_MEDALLION;
 
     public static void register() {
         RAW_WOLF_MEAT    = registerFood("raw_wolf_meat",  3, 0.3f);
@@ -30,7 +31,8 @@ public class DarkNightsItems {
         FIRE_RUNE        = registerSimple("fire_rune");
         WATER_RUNE       = registerSimple("water_rune");
         EARTH_RUNE       = registerSimple("earth_rune");
-        AIR_RUNE         = registerSimple("air_rune");
+        AIR_RUNE              = registerSimple("air_rune");
+        WILD_HUNT_MEDALLION   = registerSimple("wild_hunt_medallion");
     }
 
     private static Item registerSimple(String name) {

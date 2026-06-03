@@ -118,6 +118,7 @@ All commands require gamemaster (OP level 2) permissions.
 | `/darknights cure` | Remove zombie plague curse from self |
 | `/darknights vamp` | Apply vampire curse to self |
 | `/darknights drain` | Remove vampire curse from self |
+| `/darknights hunt` | Trigger Wild Hunt immediately |
 
 ---
 
@@ -201,9 +202,34 @@ Attunement and cooldowns survive server restarts.
 
 ---
 
+### The Wild Hunt
+
+A rare nightly event (3% chance by default). Players caught outdoors during the 30-second shelter window are claimed and must survive three waves of supernatural enemies.
+
+**Event flow:**
+1. Announcement broadcast: *"✦ THE WILD HUNT RIDES TONIGHT ✦"*
+2. 30-second shelter window — players indoors when it closes are safe
+3. Claimed players face three waves spawning around them in the overworld
+
+**Wave composition:**
+
+| Wave | Enemies | Notes |
+|------|---------|-------|
+| 1 | 3× Hunt Riders (30 HP skeletons) | Resistance I, speed boost |
+| 2 | 2× Hunt Riders (40 HP) + 2× Hunt Casters (40 HP witches) | Poison and slowness potions |
+| 3 | ✦ Skeleton Knight ✦ (80 HP, iron armor + sword) + 2× Hunt Riders (50 HP) | Resistance III, boss |
+
+**Reward:** Surviving all 3 waves drops a **Wild Hunt Medallion**. Right-clicking it permanently grants +1 Attack Damage. Stacks up to 3 times (one per Hunt survived).
+
+At dawn, the Hunt ends and any remaining Hunt mobs are removed.
+
+Admin trigger: `/darknights hunt`
+
+---
+
 ## Planned Features
 
-- **Wild Hunt** — Endgame event pitting lycanthropes against the zombie faction
+- Polish pass: double jump for Air rune, Vampire Cloak item, `/darknights dismiss` familiar command
 
 ---
 
@@ -240,6 +266,8 @@ Attunement and cooldowns survive server restarts.
 | `vampireFangInfectionChance` | `0.30` | Vampire fang infection chance |
 | `vampireAttackInfectionChance` | `0.10` | Vampire bite infection spread chance |
 | `enableRunicAttunement` | `true` | Enable runic attunement system |
+| `enableWildHunt` | `true` | Enable Wild Hunt events |
+| `wildHuntChance` | `0.03` | Nightly roll chance for Wild Hunt |
 
 ---
 

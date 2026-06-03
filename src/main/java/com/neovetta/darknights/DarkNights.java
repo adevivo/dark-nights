@@ -7,6 +7,7 @@ import com.neovetta.darknights.handler.WerewolfHandler;
 import com.neovetta.darknights.handler.FamiliarHandler;
 import com.neovetta.darknights.handler.ZombieHandler;
 import com.neovetta.darknights.handler.RuneHandler;
+import com.neovetta.darknights.handler.WildHuntHandler;
 import com.neovetta.darknights.handler.VampireHandler;
 import com.neovetta.darknights.handler.ZombieHordeHandler;
 import com.neovetta.darknights.item.DarkNightsItems;
@@ -34,6 +35,7 @@ public class DarkNights implements ModInitializer {
         ZombieHordeHandler.register();
         VampireHandler.register();
         RuneHandler.register();
+        WildHuntHandler.register();
         LOGGER.info("Dark Nights initialized");
     }
 }

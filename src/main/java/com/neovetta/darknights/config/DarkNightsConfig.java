@@ -33,6 +33,9 @@ public class DarkNightsConfig {
 
     public boolean enableRunicAttunement = true;
 
+    public boolean enableWildHunt = true;
+    public float wildHuntChance = 0.03f;
+
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     public static DarkNightsConfig load() {
