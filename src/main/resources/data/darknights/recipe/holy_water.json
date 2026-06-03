@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {"item": "minecraft:glass_bottle"},
+    {"item": "minecraft:gold_ingot"},
+    {"item": "minecraft:glowstone_dust"}
+  ],
+  "result": {
+    "id": "darknights:holy_water",
+    "count": 1
+  }
+}

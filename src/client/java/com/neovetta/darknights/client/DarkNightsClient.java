@@ -19,6 +19,7 @@ public class DarkNightsClient implements ClientModInitializer {
         ClientPacketReceiver.register();
         WerewolfRenderLayer.register();
         registerBloodMoonParticles();
+        registerVampireParticles();
     }
 
     private static void registerBloodMoonParticles() {
@@ -39,6 +40,31 @@ public class DarkNightsClient implements ClientModInitializer {
                 double ox = (RANDOM.nextDouble() - 0.5) * 6;
                 double oz = (RANDOM.nextDouble() - 0.5) * 6;
                 client.level.addParticle(ParticleTypes.CRIMSON_SPORE, px + ox, py, pz + oz, 0, -0.05, 0);
+            }
+        });
+    }
+
+    private static int vampireParticleTick = 0;
+
+    private static void registerVampireParticles() {
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (client.player == null || client.level == null) return;
+            if (!ClientPacketReceiver.vampirePlayers.containsKey(client.player.getUUID())) return;
+
+            vampireParticleTick++;
+            if (vampireParticleTick < 4) return;
+            vampireParticleTick = 0;
+
+            // Red soul fire particles near eye position
+            double ex = client.player.getX();
+            double ey = client.player.getEyeY();
+            double ez = client.player.getZ();
+            for (int i = 0; i < 2; i++) {
+                double ox = (RANDOM.nextDouble() - 0.5) * 0.6;
+                double oy = (RANDOM.nextDouble() - 0.5) * 0.4;
+                double oz = (RANDOM.nextDouble() - 0.5) * 0.6;
+                client.level.addParticle(ParticleTypes.SOUL_FIRE_FLAME,
+                    ex + ox, ey + oy, ez + oz, 0, 0.02, 0);
             }
         });
     }

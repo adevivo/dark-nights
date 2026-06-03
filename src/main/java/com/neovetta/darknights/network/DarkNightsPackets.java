@@ -9,5 +9,6 @@ public class DarkNightsPackets {
         PayloadTypeRegistry.clientboundPlay().register(BloodMoonSyncPacket.TYPE,  BloodMoonSyncPacket.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(TransformSyncPacket.TYPE,  TransformSyncPacket.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(ZombieSyncPacket.TYPE,     ZombieSyncPacket.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(VampireSyncPacket.TYPE,    VampireSyncPacket.CODEC);
     }
 }

@@ -1,9 +1,11 @@
 package com.neovetta.darknights.command;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.neovetta.darknights.handler.VampireHandler;
 import com.neovetta.darknights.handler.WerewolfHandler;
 import com.neovetta.darknights.handler.ZombieHandler;
 import com.neovetta.darknights.saveddata.LycanthropySavedData;
+import com.neovetta.darknights.saveddata.VampireSavedData;
 import com.neovetta.darknights.saveddata.ZombieSavedData;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.ChatFormatting;
@@ -106,6 +108,34 @@ public class DarkNightsCommand {
                         } else {
                             ctx.getSource().sendSuccess(() ->
                                 Component.literal("[darknights] Player is not zombie-cursed.")
+                                    .withStyle(ChatFormatting.GRAY), false);
+                        }
+                        return 1;
+                    })
+                )
+                .then(literal("vamp")
+                    .executes(ctx -> {
+                        ServerPlayer player = ctx.getSource().getPlayerOrException();
+                        VampireHandler.adminInfect(player);
+                        ctx.getSource().sendSuccess(() ->
+                            Component.literal("[darknights] Vampire curse applied.")
+                                .withStyle(ChatFormatting.DARK_RED), false);
+                        return 1;
+                    })
+                )
+                .then(literal("drain")
+                    .executes(ctx -> {
+                        MinecraftServer server = ctx.getSource().getServer();
+                        ServerPlayer player = ctx.getSource().getPlayerOrException();
+                        VampireSavedData data = VampireSavedData.get(server);
+                        if (data.get(player.getUUID()).isCursed()) {
+                            VampireHandler.adminCure(player);
+                            ctx.getSource().sendSuccess(() ->
+                                Component.literal("[darknights] Vampire curse lifted.")
+                                    .withStyle(ChatFormatting.YELLOW), false);
+                        } else {
+                            ctx.getSource().sendSuccess(() ->
+                                Component.literal("[darknights] Player is not vampire-cursed.")
                                     .withStyle(ChatFormatting.GRAY), false);
                         }
                         return 1;

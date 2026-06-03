@@ -116,6 +116,8 @@ All commands require gamemaster (OP level 2) permissions.
 | `/darknights cleanse` | Remove lycanthropy curse and revert transform |
 | `/darknights plague` | Apply zombie plague curse to self |
 | `/darknights cure` | Remove zombie plague curse from self |
+| `/darknights vamp` | Apply vampire curse to self |
+| `/darknights drain` | Remove vampire curse from self |
 
 ---
 
@@ -137,9 +139,44 @@ Zombie-cursed players automatically bond nearby undead at night. The horde follo
 
 ---
 
+### Vampire's Curse
+
+A third curse path. Vampires are powerful at night but must manage a blood bar to keep their powers.
+
+**Contracting the curse:**
+- Eating a **Vampire Fang** (30% chance) — drops from bats at 10%
+- Being struck by a vampire-cursed player (10% chance per hit)
+- Admin command: `/darknights vamp`
+
+**Night passives (while blood > 0):**
+- Night Vision I, Speed II, Strength I — sustained through the night
+- Lost entirely if blood reaches 0
+
+**Blood bar:**
+- Drains 0.002 per tick (~8 minutes full → empty)
+- Displayed on the action bar (❤ ▓▓▓▓▓░░░░░) whenever below 80%
+- At 0: all night passives drop and Weakness I applies around the clock
+
+**Feeding:**
+- Right-click a passive mob (cow, sheep, pig, etc.) with bare hands
+- The mob takes 2 HP damage; blood bar fills +20%
+- Killing any player as a vampire restores +40% blood
+
+**Sunlight damage:**
+- 1 HP/sec when outdoors during daylight
+- Wearing any helmet negates the burn
+
+**Client effect:** Faint red soul-fire particles drift from the player's eye position each tick (self only).
+
+**Cure:** Craft **Holy Water** (glass bottle + gold ingot + glowstone dust), then use it while standing outdoors during the day.
+
+**Faction interactions:**
+- Vampire kills any player → blood surge (+40%)
+
+---
+
 ## Planned Features
 
-- **Vampire's Curse** — Nocturnal power spike, sunlight damage, blood drain mechanic
 - **Runic Attunement** — Passive glyphs that modify curse effects
 - **Wild Hunt** — Endgame event pitting lycanthropes against the zombie faction
 
@@ -174,6 +211,9 @@ Zombie-cursed players automatically bond nearby undead at night. The horde follo
 | `rottenFleshInfectionChance` | `0.05` | Rotten flesh infection chance |
 | `infectedBrainInfectionChance` | `0.50` | Infected brain infection chance |
 | `zombieInfectionChance` | `0.10` | Bite infection spread chance |
+| `enableVampire` | `true` | Enable vampire curse |
+| `vampireFangInfectionChance` | `0.30` | Vampire fang infection chance |
+| `vampireAttackInfectionChance` | `0.10` | Vampire bite infection spread chance |
 
 ---
 

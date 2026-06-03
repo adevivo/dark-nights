@@ -15,10 +15,22 @@ public class DarkNightsItems {
 
     public static Item RAW_WOLF_MEAT;
     public static Item INFECTED_BRAIN;
+    public static Item VAMPIRE_FANG;
+    public static Item HOLY_WATER;
 
     public static void register() {
         RAW_WOLF_MEAT    = registerFood("raw_wolf_meat",  3, 0.3f);
         INFECTED_BRAIN   = registerFood("infected_brain", 1, 0.1f);
+        VAMPIRE_FANG     = registerSimple("vampire_fang");
+        HOLY_WATER       = registerSimple("holy_water");
+    }
+
+    private static Item registerSimple(String name) {
+        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM,
+            Identifier.fromNamespaceAndPath(DarkNights.MOD_ID, name));
+        Item item = new Item(new Item.Properties().setId(key));
+        Registry.register(BuiltInRegistries.ITEM, key, item);
+        return item;
     }
 
     private static Item registerFood(String name, int nutrition, float saturation) {

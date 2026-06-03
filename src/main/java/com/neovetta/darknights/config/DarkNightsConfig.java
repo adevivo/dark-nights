@@ -27,6 +27,10 @@ public class DarkNightsConfig {
     public float zombieInfectionChance = 0.10f;
     public int maxHordeCap = 4;
 
+    public boolean enableVampire = true;
+    public float vampireFangInfectionChance = 0.30f;
+    public float vampireAttackInfectionChance = 0.10f;
+
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     public static DarkNightsConfig load() {
