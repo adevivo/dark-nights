@@ -1,3 +1,11 @@
 {
-  "item.darknights.raw_wolf_meat": "Raw Wolf Meat"
+  "item.darknights.raw_wolf_meat": "Raw Wolf Meat",
+  "item.darknights.infected_brain": "Infected Brain",
+  "item.darknights.vampire_fang": "Vampire Fang",
+  "item.darknights.holy_water": "Holy Water",
+  "item.darknights.fire_rune": "Fire Rune",
+  "item.darknights.water_rune": "Water Rune",
+  "item.darknights.earth_rune": "Earth Rune",
+  "item.darknights.air_rune": "Air Rune",
+  "item.darknights.wild_hunt_medallion": "Wild Hunt Medallion"
 }
