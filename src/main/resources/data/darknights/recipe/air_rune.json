@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [" F ", "FMF", " F "],
+  "key": {
+    "F": {"item": "minecraft:feather"},
+    "M": {"item": "minecraft:phantom_membrane"}
+  },
+  "result": {"id": "darknights:air_rune", "count": 1}
+}

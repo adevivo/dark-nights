@@ -17,12 +17,20 @@ public class DarkNightsItems {
     public static Item INFECTED_BRAIN;
     public static Item VAMPIRE_FANG;
     public static Item HOLY_WATER;
+    public static Item FIRE_RUNE;
+    public static Item WATER_RUNE;
+    public static Item EARTH_RUNE;
+    public static Item AIR_RUNE;
 
     public static void register() {
         RAW_WOLF_MEAT    = registerFood("raw_wolf_meat",  3, 0.3f);
         INFECTED_BRAIN   = registerFood("infected_brain", 1, 0.1f);
         VAMPIRE_FANG     = registerSimple("vampire_fang");
         HOLY_WATER       = registerSimple("holy_water");
+        FIRE_RUNE        = registerSimple("fire_rune");
+        WATER_RUNE       = registerSimple("water_rune");
+        EARTH_RUNE       = registerSimple("earth_rune");
+        AIR_RUNE         = registerSimple("air_rune");
     }
 
     private static Item registerSimple(String name) {

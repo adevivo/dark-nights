@@ -175,9 +175,34 @@ A third curse path. Vampires are powerful at night but must manage a blood bar t
 
 ---
 
+### Runic Attunement
+
+Four elemental rune stones, each conferring passive abilities and a right-click active. Attunement is exclusive — switching runes replaces the previous. Runes are standalone and have no curse prerequisite.
+
+**Crafting (cross pattern: material around a core):**
+
+| Rune | Outer | Core |
+|------|-------|------|
+| Fire Rune | Blaze Powder | Fire Charge |
+| Water Rune | Lapis Lazuli | Prismarine Shard |
+| Earth Rune | Obsidian | Emerald |
+| Air Rune | Feather | Phantom Membrane |
+
+**How to use:** Right-click the rune to attune. Right-click again to trigger the active ability.
+
+| Element | Passive | Active | Cooldown |
+|---------|---------|--------|----------|
+| Fire | Fire Resistance + +1 Attack Damage | Ignite the entity you're looking at (5 sec) | 30s |
+| Water | Water Breathing + Dolphin's Grace when swimming | Cleanse fire, poison, and wither — gain Regeneration I for 10s | 20s |
+| Earth | Slow Fall + Haste I when underground (Y < 32) | Shockwave — knock back all entities within 6 blocks | 45s |
+| Air | Speed I | Dash 8 blocks in your look direction | 25s |
+
+Attunement and cooldowns survive server restarts.
+
+---
+
 ## Planned Features
 
-- **Runic Attunement** — Passive glyphs that modify curse effects
 - **Wild Hunt** — Endgame event pitting lycanthropes against the zombie faction
 
 ---
@@ -214,6 +239,7 @@ A third curse path. Vampires are powerful at night but must manage a blood bar t
 | `enableVampire` | `true` | Enable vampire curse |
 | `vampireFangInfectionChance` | `0.30` | Vampire fang infection chance |
 | `vampireAttackInfectionChance` | `0.10` | Vampire bite infection spread chance |
+| `enableRunicAttunement` | `true` | Enable runic attunement system |
 
 ---
 

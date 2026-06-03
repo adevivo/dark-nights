@@ -31,6 +31,8 @@ public class DarkNightsConfig {
     public float vampireFangInfectionChance = 0.30f;
     public float vampireAttackInfectionChance = 0.10f;
 
+    public boolean enableRunicAttunement = true;
+
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     public static DarkNightsConfig load() {
