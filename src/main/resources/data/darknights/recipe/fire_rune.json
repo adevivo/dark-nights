@@ -3,8 +3,8 @@
   "category": "misc",
   "pattern": [" B ", "BFB", " B "],
   "key": {
-    "B": {"item": "minecraft:blaze_powder"},
-    "F": {"item": "minecraft:fire_charge"}
+    "B": "minecraft:blaze_powder",
+    "F": "minecraft:fire_charge"
   },
   "result": {"id": "darknights:fire_rune", "count": 1}
 }

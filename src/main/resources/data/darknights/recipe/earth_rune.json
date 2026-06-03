@@ -3,8 +3,8 @@
   "category": "misc",
   "pattern": [" O ", "OEO", " O "],
   "key": {
-    "O": {"item": "minecraft:obsidian"},
-    "E": {"item": "minecraft:emerald"}
+    "O": "minecraft:obsidian",
+    "E": "minecraft:emerald"
   },
   "result": {"id": "darknights:earth_rune", "count": 1}
 }
