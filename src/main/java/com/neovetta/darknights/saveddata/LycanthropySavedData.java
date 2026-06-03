@@ -4,10 +4,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
-import net.minecraft.util.ExtraCodecs;
 
 import java.util.*;
 
@@ -17,33 +16,39 @@ public class LycanthropySavedData extends SavedData {
         boolean isCursed,
         boolean isTransformed,
         int lunarAge,
-        long howlCooldownTick
+        long howlCooldownTick,
+        List<ItemStack> savedArmor   // HEAD, CHEST, LEGS, FEET, OFFHAND — empty list when not saved
     ) {
         public static final Codec<PlayerLycanthropy> CODEC = RecordCodecBuilder.create(inst -> inst.group(
             Codec.BOOL.fieldOf("isCursed").forGetter(PlayerLycanthropy::isCursed),
             Codec.BOOL.fieldOf("isTransformed").forGetter(PlayerLycanthropy::isTransformed),
             Codec.INT.fieldOf("lunarAge").forGetter(PlayerLycanthropy::lunarAge),
-            Codec.LONG.fieldOf("howlCooldownTick").forGetter(PlayerLycanthropy::howlCooldownTick)
+            Codec.LONG.fieldOf("howlCooldownTick").forGetter(PlayerLycanthropy::howlCooldownTick),
+            ItemStack.OPTIONAL_CODEC.listOf()
+                .optionalFieldOf("savedArmor", List.of())
+                .forGetter(PlayerLycanthropy::savedArmor)
         ).apply(inst, PlayerLycanthropy::new));
 
         public static final PlayerLycanthropy DEFAULT =
-            new PlayerLycanthropy(false, false, 0, 0L);
+            new PlayerLycanthropy(false, false, 0, 0L, List.of());
 
         public PlayerLycanthropy withCursed(boolean cursed) {
-            return new PlayerLycanthropy(cursed, isTransformed, lunarAge, howlCooldownTick);
+            return new PlayerLycanthropy(cursed, isTransformed, lunarAge, howlCooldownTick, savedArmor);
         }
         public PlayerLycanthropy withTransformed(boolean t) {
-            return new PlayerLycanthropy(isCursed, t, lunarAge, howlCooldownTick);
+            return new PlayerLycanthropy(isCursed, t, lunarAge, howlCooldownTick, savedArmor);
         }
         public PlayerLycanthropy withLunarAge(int age) {
-            return new PlayerLycanthropy(isCursed, isTransformed, age, howlCooldownTick);
+            return new PlayerLycanthropy(isCursed, isTransformed, age, howlCooldownTick, savedArmor);
         }
         public PlayerLycanthropy withHowlCooldown(long tick) {
-            return new PlayerLycanthropy(isCursed, isTransformed, lunarAge, tick);
+            return new PlayerLycanthropy(isCursed, isTransformed, lunarAge, tick, savedArmor);
+        }
+        public PlayerLycanthropy withSavedArmor(List<ItemStack> armor) {
+            return new PlayerLycanthropy(isCursed, isTransformed, lunarAge, howlCooldownTick, armor);
         }
     }
 
-    // Record codec: List of [uuid-string, PlayerLycanthropy] pairs
     private record Entry(String uuid, PlayerLycanthropy data) {
         static final Codec<Entry> CODEC = RecordCodecBuilder.create(inst -> inst.group(
             Codec.STRING.fieldOf("uuid").forGetter(Entry::uuid),
@@ -56,9 +61,8 @@ public class LycanthropySavedData extends SavedData {
             list -> {
                 LycanthropySavedData d = new LycanthropySavedData();
                 for (Entry e : list) {
-                    try {
-                        d.map.put(UUID.fromString(e.uuid()), e.data());
-                    } catch (IllegalArgumentException ignored) {}
+                    try { d.map.put(UUID.fromString(e.uuid()), e.data()); }
+                    catch (IllegalArgumentException ignored) {}
                 }
                 return d;
             },
@@ -106,6 +110,18 @@ public class LycanthropySavedData extends SavedData {
 
     public void setHowlCooldown(UUID uuid, long tick) {
         put(uuid, get(uuid).withHowlCooldown(tick));
+    }
+
+    public void saveClearArmor(UUID uuid, List<ItemStack> armor) {
+        put(uuid, get(uuid).withSavedArmor(armor));
+    }
+
+    public List<ItemStack> getSavedArmor(UUID uuid) {
+        return get(uuid).savedArmor();
+    }
+
+    public void clearSavedArmor(UUID uuid) {
+        put(uuid, get(uuid).withSavedArmor(List.of()));
     }
 
     public Collection<UUID> allUuids() {
