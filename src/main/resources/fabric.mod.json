@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "darknights",
+  "version": "${version}",
+  "name": "Dark Nights",
+  "description": "Werewolves, zombie hordes, vampires, and blood moon chaos — a dark curse mod for Fabric 26.1.x.",
+  "authors": ["Adrian DeVivo"],
+  "license": "MIT",
+  "icon": "assets/darknights/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.neovetta.darknights.DarkNights"],
+    "client": ["com.neovetta.darknights.client.DarkNightsClient"]
+  },
+  "contact": {
+    "homepage": "https://github.com/adevivo/dark-nights",
+    "sources": "https://github.com/adevivo/dark-nights",
+    "issues": "https://github.com/adevivo/dark-nights/issues"
+  },
+  "depends": {
+    "fabricloader": ">=0.19.2",
+    "minecraft": "~26.1.2",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}
