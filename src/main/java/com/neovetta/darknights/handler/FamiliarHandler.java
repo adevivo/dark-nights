@@ -3,6 +3,7 @@ package com.neovetta.darknights.handler;
 import com.neovetta.darknights.DarkNights;
 import com.neovetta.darknights.saveddata.FamiliarsSavedData;
 import com.neovetta.darknights.saveddata.LycanthropySavedData;
+import com.neovetta.darknights.saveddata.ZombieSavedData;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
@@ -110,12 +111,16 @@ public class FamiliarHandler {
         }
     }
 
-    // Placeholder — will set wolf targets to zombie-cursed players once ZombieSavedData exists
     private static void applyFactionTargeting(Wolf wolf, ServerPlayer owner, MinecraftServer server) {
-        // ZombieSavedData zombie = ZombieSavedData.get(server);
-        // for (ServerPlayer p : nearbyPlayers) {
-        //     if (zombie.get(p.getUUID()).isCursed() && p != owner) { wolf.setTarget(p); break; }
-        // }
+        ZombieSavedData zombie = ZombieSavedData.get(server);
+        for (ServerPlayer p : server.getPlayerList().getPlayers()) {
+            if (p.getUUID().equals(owner.getUUID())) continue;
+            if (!zombie.get(p.getUUID()).isCursed()) continue;
+            if (wolf.distanceToSqr(p) < 20.0 * 20.0) {
+                wolf.setTarget(p);
+                break;
+            }
+        }
     }
 
     // -------------------------------------------------------------------------

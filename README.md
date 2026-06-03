@@ -57,6 +57,54 @@ All modifiers are transient — removed cleanly on revert.
 
 **Persistence:** Curse state, lunar age, and howl cooldown are stored in `SavedData` and survive server restarts.
 
+### Wolf Familiars
+
+Lycanthrope players automatically attract nearby wild wolves as pack members. Pack cap scales with lunar age: `min(lunarAge + 1, 8)`.
+
+- Wild wolves within 10 blocks of a cursed player are bonded silently (no taming animation)
+- Bonded wolves follow, protect, and teleport back if they stray beyond 30 blocks
+- **Pack disperses** when the player sleeps — each night is a fresh pack
+- If a familiar dies, the owner is notified with the remaining pack count on the action bar
+- If `enableFactionCombat` is on, pack wolves automatically target zombie-cursed players within 20 blocks
+
+Familiar bonds persist through server restarts and chunk reloads.
+
+### Zombie Plague
+
+A rival curse. Unlike lycanthropy there is no moon cycle — the zombie form is permanent and always active.
+
+**Contracting the plague:**
+- Eating **Rotten Flesh** (5% chance by default)
+- Eating an **Infected Brain** (50% chance) — a rare drop from Zombie Villagers and Drowned
+- Being struck by a zombie-cursed player (10% chance per hit)
+- Admin command: `/darknights plague`
+
+**Zombie form (always active):**
+
+| Stat | Change |
+|------|--------|
+| Max Health | +10 HP |
+| Attack Damage | +4 |
+| Movement Speed | −0.02 (shambling) |
+| Armor | +6 |
+| Knockback Resistance | +0.6 |
+
+**Undead properties:**
+- Night Vision always active; Regeneration I at night; Weakness I during the day
+- Outdoors in sunlight: 0.5 HP/sec passive burn
+- Fire damage heals instead of harming — grants Regeneration II
+- Instant Health potions deal damage; Harming potions heal
+- Rotten flesh is real food — the Hunger debuff is removed immediately
+- Food below 6: extra Weakness II until meat or rotten flesh is eaten
+
+**Faction interactions:**
+- Werewolf howl applies Slowness + Weakness to zombie players within range
+- Pack wolves target nearby zombie players
+- Werewolf kills zombie → food reward
+- Zombie kills transformed werewolf → Strength I adrenaline
+
+**Cure:** Eat a **Golden Apple** at any time.
+
 ### Admin Commands
 
 All commands require gamemaster (OP level 2) permissions.
@@ -65,17 +113,18 @@ All commands require gamemaster (OP level 2) permissions.
 |---------|--------|
 | `/darknights transform` | Toggle werewolf transform on self (curses first if needed) |
 | `/darknights curse` | Apply lycanthropy curse to self |
-| `/darknights cleanse` | Remove curse and revert transform |
+| `/darknights cleanse` | Remove lycanthropy curse and revert transform |
+| `/darknights plague` | Apply zombie plague curse to self |
+| `/darknights cure` | Remove zombie plague curse from self |
 
 ---
 
 ## Planned Features
 
-- **Wolf Familiars** — Cursed players attract tame wolves as a pack. Cap scales with lunar age (`min(lunarAge + 1, 8)`). Pack disperses when the player sleeps.
-- **Zombie Plague** — A rival curse faction. Zombie players command undead familiars that burn at sunrise.
-- **Vampire's Curse** — Nocturnal power spike, sunlight damage, blood drain mechanic.
-- **Runic Attunement** — Passive glyphs that modify curse effects.
-- **Wild Hunt** — Endgame event pitting lycanthropes against the zombie faction.
+- **Zombie Familiars** — Zombie players command undead (zombie/drowned) that burn at sunrise
+- **Vampire's Curse** — Nocturnal power spike, sunlight damage, blood drain mechanic
+- **Runic Attunement** — Passive glyphs that modify curse effects
+- **Wild Hunt** — Endgame event pitting lycanthropes against the zombie faction
 
 ---
 
@@ -104,6 +153,10 @@ All commands require gamemaster (OP level 2) permissions.
 | `transformOnBloodMoon` | `true` | Lycanthropes also transform on blood moon |
 | `maxFamiliarCap` | `8` | Hard cap on familiar count |
 | `enableFactionCombat` | `true` | Wolf familiars target zombie-cursed players |
+| `enableZombiePlague` | `true` | Enable zombie plague curse |
+| `rottenFleshInfectionChance` | `0.05` | Rotten flesh infection chance |
+| `infectedBrainInfectionChance` | `0.50` | Infected brain infection chance |
+| `zombieInfectionChance` | `0.10` | Bite infection spread chance |
 
 ---
 

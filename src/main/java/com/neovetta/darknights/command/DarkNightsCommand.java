@@ -2,7 +2,9 @@ package com.neovetta.darknights.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.neovetta.darknights.handler.WerewolfHandler;
+import com.neovetta.darknights.handler.ZombieHandler;
 import com.neovetta.darknights.saveddata.LycanthropySavedData;
+import com.neovetta.darknights.saveddata.ZombieSavedData;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandBuildContext;
@@ -75,8 +77,37 @@ public class DarkNightsCommand {
                         WerewolfHandler.adminRevert(player);
                         data.setCursed(player.getUUID(), false);
                         ctx.getSource().sendSuccess(() ->
-                            Component.literal("[darknights] Curse cleansed.")
+                            Component.literal("[darknights] Lycanthropy cleansed.")
                                 .withStyle(ChatFormatting.GOLD), false);
+                        return 1;
+                    })
+                )
+                .then(literal("plague")
+                    .executes(ctx -> {
+                        MinecraftServer server = ctx.getSource().getServer();
+                        ServerPlayer player = ctx.getSource().getPlayerOrException();
+                        ZombieHandler.adminInfect(player);
+                        ctx.getSource().sendSuccess(() ->
+                            Component.literal("[darknights] Zombie plague applied.")
+                                .withStyle(ChatFormatting.DARK_GREEN), false);
+                        return 1;
+                    })
+                )
+                .then(literal("cure")
+                    .executes(ctx -> {
+                        MinecraftServer server = ctx.getSource().getServer();
+                        ServerPlayer player = ctx.getSource().getPlayerOrException();
+                        ZombieSavedData data = ZombieSavedData.get(server);
+                        if (data.get(player.getUUID()).isCursed()) {
+                            ZombieHandler.adminCure(player);
+                            ctx.getSource().sendSuccess(() ->
+                                Component.literal("[darknights] Zombie plague cured.")
+                                    .withStyle(ChatFormatting.GREEN), false);
+                        } else {
+                            ctx.getSource().sendSuccess(() ->
+                                Component.literal("[darknights] Player is not zombie-cursed.")
+                                    .withStyle(ChatFormatting.GRAY), false);
+                        }
                         return 1;
                     })
                 )

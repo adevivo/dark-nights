@@ -14,9 +14,11 @@ import net.minecraft.world.item.component.Consumables;
 public class DarkNightsItems {
 
     public static Item RAW_WOLF_MEAT;
+    public static Item INFECTED_BRAIN;
 
     public static void register() {
-        RAW_WOLF_MEAT = registerFood("raw_wolf_meat", 3, 0.3f);
+        RAW_WOLF_MEAT    = registerFood("raw_wolf_meat",  3, 0.3f);
+        INFECTED_BRAIN   = registerFood("infected_brain", 1, 0.1f);
     }
 
     private static Item registerFood(String name, int nutrition, float saturation) {

@@ -3,6 +3,7 @@ package com.neovetta.darknights.handler;
 import com.neovetta.darknights.DarkNights;
 import com.neovetta.darknights.network.TransformSyncPacket;
 import com.neovetta.darknights.saveddata.LycanthropySavedData;
+import com.neovetta.darknights.saveddata.ZombieSavedData;
 import com.neovetta.darknights.saveddata.LycanthropySavedData.PlayerLycanthropy;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -412,6 +413,21 @@ public class WerewolfHandler {
             wolf.addEffect(new MobEffectInstance(MobEffects.SPEED,             600, 1, true, false));
             wolf.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 600, 2, true, false));
         });
+
+        // Fear effect on zombie-cursed players within range
+        if (DarkNights.CONFIG.enableFactionCombat) {
+            ZombieSavedData zombieData = ZombieSavedData.get(player.level().getServer());
+            for (ServerPlayer nearby : player.level().getServer().getPlayerList().getPlayers()) {
+                if (nearby.getUUID().equals(player.getUUID())) continue;
+                if (!zombieData.get(nearby.getUUID()).isCursed()) continue;
+                if (nearby.distanceToSqr(player) > 15 * 15) continue;
+                nearby.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 160, 1, true, false));
+                nearby.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 160, 0, true, false));
+                nearby.sendSystemMessage(
+                    Component.literal("A terrible howl fills your mind with dread!")
+                        .withStyle(ChatFormatting.DARK_RED), false);
+            }
+        }
 
         // Particle burst at player
         double x = player.getX(), y = player.getY() + 1.0, z = player.getZ();

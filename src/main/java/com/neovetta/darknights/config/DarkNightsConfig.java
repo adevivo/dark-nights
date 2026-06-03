@@ -21,6 +21,11 @@ public class DarkNightsConfig {
     public int maxFamiliarCap = 8;
     public boolean enableFactionCombat = true;
 
+    public boolean enableZombiePlague = true;
+    public float rottenFleshInfectionChance = 0.05f;
+    public float infectedBrainInfectionChance = 0.50f;
+    public float zombieInfectionChance = 0.10f;
+
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     public static DarkNightsConfig load() {
